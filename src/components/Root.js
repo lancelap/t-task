@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import PopularMovies from './routes/PopularMovies';
+import HomePage from './routes/HomePage';
 
 class Root extends Component {
   render() {
     return(
-        <h1>Hello</h1>
+        <Switch>
+          <Route exact strict path='/' component={HomePage} />
+          <Route path='/popular' component={PopularMovies} />
+        </Switch>
     )
   }
 }
