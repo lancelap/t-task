@@ -93,21 +93,21 @@ class ListPopularMovies extends Component {
 
 ListPopularMovies.propTypes = {
   page: PropTypes.string.isRequired,
-  loading: PropTypes.bool.isRequired,
-  loaded: PropTypes.bool.isRequired,
-  movies: PropTypes.array.isRequired,
-  loadedPage: PropTypes.number,
-  totalPages: PropTypes.number,
-  totalResults: PropTypes.number,
+  loading: PropTypes.bool,
+  movies: PropTypes.array,
+  totalPages: PropTypes.number
 }
 
-export default connect(({movies}) => {
+ListPopularMovies.defaultProps = {
+  loading: false,
+  movies: [],
+  totalPages: 0
+}
+
+export default connect(({movies: {popularMovies}}, {page}) => {
   return {
-    loading: movies.loading,
-    loaded: movies.loaded,
-    loadedPage: movies.page,
-    movies: movies.entities,
-    totalPages: movies.totalPages,
-    totalResults: movies.totalResults,
+    loading: popularMovies.loading,
+    movies: popularMovies.movies,
+    totalPages: popularMovies.totalPages,
   }
 }, {loadPopularMovies})(ListPopularMovies);

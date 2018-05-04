@@ -7,9 +7,8 @@ function PopularMovies({match}) {
   return <Route path = '/popular/:page' render = {getCommentsPaginator}/>
 }
 
-function getCommentsPaginator({match, location}) {
-  console.log(location.search)
+function getCommentsPaginator({match}) {
   return <ListPopularMovies page = {match.params.page}/>
 }
 
-export default PopularMovies;
+export default PopularMovies; 
