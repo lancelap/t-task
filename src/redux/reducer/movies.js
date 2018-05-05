@@ -1,5 +1,5 @@
-import { Record } from 'immutable';
-import { LOAD_POPULAR_MOVIES, START, SUCCESS, FAIL } from '../constants';
+import { Record, Map } from 'immutable';
+import { LOAD_POPULAR_MOVIES, START, SUCCESS, FAIL, LOAD_MOVIE_DETAILS } from '../constants';
 
 const PopularMoviesState = Record({
   page: null,
@@ -8,8 +8,13 @@ const PopularMoviesState = Record({
   movies: []
 });
 
+// const movieDetails = Record({
+//   loading: false,
+// })
+
 const ReducerState = Record({
-  popularMovies: new PopularMoviesState()
+  popularMovies: new PopularMoviesState(),
+  movieDetails: new Map({})
 })
 
 const defaultState = new ReducerState();
@@ -30,6 +35,17 @@ export default (moviesState = defaultState, action) => {
 
     case LOAD_POPULAR_MOVIES + FAIL:
       return moviesState.setIn(['popularMovies', 'loading'], false)
+
+    case LOAD_MOVIE_DETAILS + START: 
+      return moviesState.setIn(['movieDetails', 'loading'], true)
+
+    case LOAD_MOVIE_DETAILS + SUCCESS:
+      return moviesState
+        .setIn(['movieDetails', 'loading'], false)
+        .setIn(['movieDetails', 'entity'], payload.response)
+
+    case LOAD_MOVIE_DETAILS + FAIL:
+      return moviesState.setIn(['movieDetails', 'loading'], false)
 
     default:
       return moviesState;

@@ -1,6 +1,35 @@
-import { START, SUCCESS, FAIL, LOAD_POPULAR_MOVIES } from '../constants';
+import { START, SUCCESS, FAIL, LOAD_POPULAR_MOVIES, LOAD_MOVIE_DETAILS } from '../constants';
 
-export function loadPopularMovies(page = 1) {
+export function loadMovieDetails(id) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: LOAD_MOVIE_DETAILS + START,
+      payload: { id }
+    })
+
+    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=6108a68e8023a97f3bdd93fb1650c322&language=en-US`)
+    .then(res => {
+      if (res.status >= 400) {
+        throw new Error(res.statusText)
+      }
+      return res.json()
+    })
+    .then(response => {
+      dispatch({
+        type: LOAD_MOVIE_DETAILS + SUCCESS,
+        payload: { id, response }
+      })
+    })
+    .catch(error => {
+      dispatch({
+        type: LOAD_MOVIE_DETAILS + FAIL,
+        payload: { id, error }
+      })
+    })
+  }
+}
+
+export function loadPopularMovies(page) {
   return (dispatch, getState) => {
     const {movies: {popularMovies}} = getState();
     if (popularMovies.loading  || Number(popularMovies.page) === Number(page)) return;
