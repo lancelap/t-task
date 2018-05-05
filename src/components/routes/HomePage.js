@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route } from 'react-router-dom'
-import ListPopularMovies from '../ListPopularMovies';
+import PopularMoviesList from '../PopularMoviesList';
 
 function HomePage() {
   return <Route path = '/' render = {getHomePage}/>
 }
 
 function getHomePage() {
-  return <ListPopularMovies page = '1'/>
+  return <PopularMoviesList page = '1'/>
 }
 
 export default HomePage;
