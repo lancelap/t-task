@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Col } from 'react-bootstrap';
 import { loadSimilarMovies } from '../redux/AC';
-import SimilarMovie from './SimilarMovie';
+import MovieCard from './MovieCard';
 
 class SimilarMovies extends Component {
   componentDidMount() {
@@ -15,7 +15,7 @@ class SimilarMovies extends Component {
       <div>
         {this.props.movies.map((item) => {
           return <Col xs={6} md={3} key={item.id}>
-            <SimilarMovie 
+            <MovieCard 
               id={item.id}
               title={item.title}
               imageSrc={item.poster_path}/>

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Pager, Grid, Col, Row, PageHeader, Button, Media } from 'react-bootstrap';
 import { loadPopularMovies } from '../redux/AC';
+import MovieCard from './MovieCard';
 
 class ListPopularMovies extends Component {
   componentDidMount() {
@@ -42,12 +43,10 @@ class ListPopularMovies extends Component {
       return (
           <Media key={item.id}>
             <Media.Left>
-              <img 
-                className="media-object" 
-                width="185px"
-                height="278px"
-                alt={item.title}
-                src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${item.poster_path}`}/>
+            <MovieCard
+                title={item.title}
+                imageSrc={item.poster_path}
+                id={item.id}/>
             </Media.Left>
             <Media.Body>
               <h4 className="media-heading">{item.title}</h4>

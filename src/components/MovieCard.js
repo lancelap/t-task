@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-class SimilarMovie extends Component {
+class MovieCard extends Component {
   render() {
     const {imageSrc, title, id} = this.props;
 
     return <Link to={`/movie/${id}`}>
-        <Image 
-          thumbnail 
+        <Image  
           width="185px"
           height="278px"
           alt={title} 
@@ -19,10 +18,10 @@ class SimilarMovie extends Component {
   }
 }
 
-SimilarMovie.propTypes = {
+MovieCard.propTypes = {
   imageSrc: PropTypes.string,
   title: PropTypes.string,
-  id: PropTypes.string.isRequired
+  id: PropTypes.number.isRequired
 };
 
-export default SimilarMovie;
+export default MovieCard;
