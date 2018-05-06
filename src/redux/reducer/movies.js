@@ -8,10 +8,6 @@ const PopularMoviesState = Record({
   movies: []
 });
 
-// const movieDetails = Record({
-//   loading: false,
-// })
-
 const ReducerState = Record({
   popularMovies: new PopularMoviesState(),
   movieDetails: new Map({})

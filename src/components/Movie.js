@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Col, Row, PageHeader, Media, Label } from 'react-bootstrap';
 import { loadMovieDetails } from '../redux/AC';
+import SimilarMovies from './SimilarMovies';
 
 class PopularMovie extends Component {
   componentDidMount() {
@@ -9,8 +10,10 @@ class PopularMovie extends Component {
   }
 
   render() {
-    if(this.props.loading || this.props.loading === undefined) return <h3>loading...</h3>;
-    const {title, overview, poster_path, release_date, genres} = this.props.movieDetails;
+    const {loading, movieDetails, id} = this.props;
+
+    if(loading || loading === undefined) return <h3>loading...</h3>;
+    const {title, overview, poster_path, release_date, genres} = movieDetails;
 
     return (
       <Grid>
@@ -52,10 +55,11 @@ class PopularMovie extends Component {
         </Col>
         <Col xs={12}>
           <h3>Recommendations</h3>
+          <SimilarMovies movieId={id}/>
         </Col>
       </Row>
     </Grid>
-    );
+    )
   }
 }
 
