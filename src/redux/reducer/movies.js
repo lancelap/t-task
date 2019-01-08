@@ -1,5 +1,5 @@
 import { Record, Map } from 'immutable';
-import { LOAD_POPULAR_MOVIES, START, SUCCESS, FAIL, LOAD_MOVIE_DETAILS } from '../constants';
+import { LOAD_POPULAR_MOVIES, START, SUCCESS, FAIL, LOAD_MOVIE_DETAILS, SEARCH_MOVIE } from '../constants';
 
 const PopularMoviesState = Record({
   page: null,
@@ -22,15 +22,21 @@ export default (moviesState = defaultState, action) => {
     case LOAD_POPULAR_MOVIES + START:
       return moviesState.setIn(['popularMovies', 'loading'], true)
 
-    case LOAD_POPULAR_MOVIES + SUCCESS:
+    case LOAD_POPULAR_MOVIES + SUCCESS:      return moviesState
+
       return moviesState
         .setIn(['popularMovies', 'loading'], false)
         .setIn(['popularMovies', 'page'], payload.response.page)
         .setIn(['popularMovies', 'totalPages'], payload.response.total_pages)
         .setIn(['popularMovies', 'movies'], payload.response.results)
 
+
+
+
+
     case LOAD_POPULAR_MOVIES + FAIL:
       return moviesState.setIn(['popularMovies', 'loading'], false)
+    case LOAD_MOVIE_DETAILS + START: 
 
     case LOAD_MOVIE_DETAILS + START: 
       return moviesState.setIn(['movieDetails', 'loading'], true)
