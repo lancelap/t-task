@@ -22,17 +22,12 @@ export default (moviesState = defaultState, action) => {
     case LOAD_POPULAR_MOVIES + START:
       return moviesState.setIn(['popularMovies', 'loading'], true)
 
-    case LOAD_POPULAR_MOVIES + SUCCESS:      return moviesState
-
+    case LOAD_POPULAR_MOVIES + SUCCESS:
       return moviesState
         .setIn(['popularMovies', 'loading'], false)
         .setIn(['popularMovies', 'page'], payload.response.page)
         .setIn(['popularMovies', 'totalPages'], payload.response.total_pages)
         .setIn(['popularMovies', 'movies'], payload.response.results)
-
-
-
-
 
     case LOAD_POPULAR_MOVIES + FAIL:
       return moviesState.setIn(['popularMovies', 'loading'], false)

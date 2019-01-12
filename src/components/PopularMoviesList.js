@@ -5,8 +5,21 @@ import MovieList from './MovieList';
 import { loadPopularMovies } from '../redux/AC';
 
 class PopularMoviesList extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      query: ''
+    }
+  }
+
   render() {
-    return <MovieList {...this.props} />
+    return <MovieList {...this.props} search={this.search} query={this.state.query} />
+  }
+
+
+  search = (query) => {
+    this.setState({query});
   }
 }
 

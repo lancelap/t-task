@@ -61,13 +61,18 @@ export function loadSimilarMovies(id) {
 }
 
 
-export function loadPopularMovies(page) {
+export function loadPopularMovies(page, query = 'star') {
   return (dispatch, getState) => {
     const {movies: {popularMovies}} = getState();
     if (popularMovies.loading || +popularMovies.page === +page ) return;
     
+    
     const apiKey = '6108a68e8023a97f3bdd93fb1650c322';
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`;
+    let url = '';
+    if(query !== '') {
+      url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}`;
+    }
+    url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=star`;
 
     dispatch({
       type: LOAD_POPULAR_MOVIES + START,
