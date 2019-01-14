@@ -11,25 +11,21 @@ import {
   Media
 } from 'react-bootstrap';
 import MovieCard from './MovieCard';
-import SearchForm from './SearchForm';
 
 class MovieList extends Component {
   componentDidMount() {
-    const { page, query } = this.props;
-    this.props.loadMovies(page, query);
+    const { page } = this.props;
+    this.props.loadMovies(page);
   }
 
-  componentWillReceiveProps({ page, loadMovies, query }) {
-    loadMovies(page, query);
+  componentWillReceiveProps({ page, loadMovies }) {
+    loadMovies(page);
   }
 
   render() {
     return (
       <Grid>
         <Row className='show-grid'>
-          <Col xs={12}>
-            <SearchForm search={this.props.search} />
-          </Col>
           <Col xs={12}>
             <PageHeader>Popular Movies</PageHeader>
           </Col>
@@ -109,10 +105,7 @@ MovieList.propTypes = {
   page: PropTypes.string.isRequired,
   loading: PropTypes.bool,
   movies: PropTypes.array,
-  totalPages: PropTypes.number,
-  loadMovies: PropTypes.func.isRequired,
-  search: PropTypes.func.isRequired,
-  query: PropTypes.string.isRequired
+  totalPages: PropTypes.number
 };
 
 MovieList.defaultProps = {

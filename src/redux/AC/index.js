@@ -1,4 +1,4 @@
-import { START, SUCCESS, FAIL, LOAD_POPULAR_MOVIES, LOAD_MOVIE_DETAILS, LOAD_SIMILAR_MOVIES, SEARCH_MOVIE } from '../constants';
+import { START, SUCCESS, FAIL, LOAD_POPULAR_MOVIES, LOAD_MOVIE_DETAILS, LOAD_SIMILAR_MOVIES } from '../constants';
 
 export function loadMovieDetails(id) {
   return (dispatch, getState) => {
@@ -68,17 +68,13 @@ export function loadPopularMovies(page, query = 'star') {
     
     
     const apiKey = '6108a68e8023a97f3bdd93fb1650c322';
-    let url = '';
-    if(query !== '') {
-      url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}`;
-    }
-    url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=star`;
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`;
 
     dispatch({
       type: LOAD_POPULAR_MOVIES + START,
       payload: { page }
     })
-
+    
     setTimeout(() => { fetch(url)
       .then(res => {
         if (res.status >= 400) {
@@ -95,42 +91,6 @@ export function loadPopularMovies(page, query = 'star') {
       .catch(error => {
         dispatch({
           type: LOAD_POPULAR_MOVIES + FAIL,
-          payload: { page, error }
-        })
-      })
-    }, 1000)
-  }
-}
-
-export function searchMovie (page, query = 'star') {
-  return (dispatch, getState) => {
-    const {searchMovie} = getState();
-    if (searchMovie.loading || +searchMovie.page === +page ) return;
-    
-    const apiKey = '6108a68e8023a97f3bdd93fb1650c322';
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}`;
-
-    dispatch({
-      type: SEARCH_MOVIE + START,
-      payload: { page }
-    })
-
-    setTimeout(() => { fetch(url)
-      .then(res => {
-        if (res.status >= 400) {
-          throw new Error(res.statusText)
-        }
-        return res.json()
-      })
-      .then(response => {
-        dispatch({
-          type: SEARCH_MOVIE + SUCCESS,
-          payload: { page, response }
-        })
-      })
-      .catch(error => {
-        dispatch({
-          type: SEARCH_MOVIE + FAIL,
           payload: { page, error }
         })
       })
